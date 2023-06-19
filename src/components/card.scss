@@ -1,0 +1,10 @@
+@import '../variables';
+
+.card_container{
+    background-color: $main_color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 100px;
+}
