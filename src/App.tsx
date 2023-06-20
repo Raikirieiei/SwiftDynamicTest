@@ -1,25 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import MainPage from './pages/MainPage'
+import ShapePage from './pages/ShapePage';
+import FormPage from './pages/FormPage';
+import Header from './components/Header'
+
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div style={{background: 'linear-gradient(to right, #6eda78 , #ffa200)', height: '100vh'}}>
+      <BrowserRouter>
+      <Header/>
+        <Routes>
+            <Route path='/' element={<MainPage/>} />
+            <Route path='/shape' element={<ShapePage/>} />
+            <Route path='/form' element={<FormPage/>} />
+        </Routes>
+    </BrowserRouter>
+   </div>
   );
 }
 

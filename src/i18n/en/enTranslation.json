@@ -1,0 +1,17 @@
+{
+    "main_title": "Main Page",
+    "shape_title": "Layout & Style",
+    "form_title": "Form Redux",
+    "sub_title":{
+        "sub1" : "Layout&Style",
+        "sub2" : "FormRedux"
+    },
+    "change_lang": "EN",
+    "change_lang_en": "EN",
+    "change_lang_th": "TH",
+    "move_label":{
+        "shape": "Move shape",
+        "position": "Move position"
+    }
+
+}

@@ -1,0 +1,80 @@
+.triangle-up {
+  width: 0;
+  height: 0;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  border-bottom: 50px solid #7e7e7e;
+}
+
+.triangle_up {
+  width: 0;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-bottom: 100px solid #7e7e7e;
+}
+
+.triangle_down {
+  width: 0;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-top: 100px solid #7e7e7e;
+}
+
+.triangle_left {
+  width: 0;
+  height: 0;
+  border-top: 50px solid transparent;
+  border-right: 100px solid #7e7e7e;
+  border-bottom: 50px solid transparent;
+}
+
+.triangle_right {
+  width: 0;
+  height: 0;
+  border-top: 50px solid transparent;
+  border-left: 100px solid #7e7e7e;
+  border-bottom: 50px solid transparent;
+}
+
+.square {
+  height: 100px;
+  width: 100px;
+  background-color: #7e7e7e;
+}
+
+.circle {
+  height: 100px;
+  width: 100px;
+  background-color: #7e7e7e;
+  border-radius: 50%;
+}
+
+.oval {
+  height: 100px;
+  width: 200px;
+  background-color: #7e7e7e;
+  border-radius: 50%;
+}
+
+.trapezoid {
+  border-bottom: 100px solid #7e7e7e;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  height: 0;
+  width: 125px;
+}
+
+.rectangle {
+  height: 100px;
+  width: 200px;
+  background-color: #7e7e7e;
+}
+
+.parallelogram {
+  width: 200px;
+  height: 100px;
+  transform: skew(20deg);
+  background: #7e7e7e;
+}/*# sourceMappingURL=shape.css.map */

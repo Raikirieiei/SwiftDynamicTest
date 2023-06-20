@@ -1,0 +1,11 @@
+@import '../../variables';
+
+.main_container{
+    font-size: 30px;
+    padding-top: 150px;
+    margin: auto;
+    width: 50%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+}
