@@ -1,7 +1,6 @@
 import React from 'react'
 import './css/mainpage.css'
 import Card from '../components/Card'
-import '../i18n/config';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -18,11 +17,11 @@ const MainPage = () => {
     <div>
 
         <div className='main_container'>
-          <div onClick={() => navigateTo('/shape')}>
-            <Card title={t('sub_title.sub1')}/>
+          <div style={{width: '300px'}}>
+            <Card title={t('sub_title.sub1')} onClick={() => navigateTo('/shape')}/>
           </div>
-          <div onClick={() => navigateTo('/form')}>
-            <Card title={t('sub_title.sub2')} />
+          <div style={{width: '300px'}}>
+            <Card title={t('sub_title.sub2')} onClick={() => navigateTo('/form')}/>
           </div>    
         </div>
     </div>

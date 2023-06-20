@@ -5,6 +5,28 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 200px;
-    height: 100px;
+    padding: 10px;
+    // width: 200px;
+    height: 150px;
+    border-radius: 10px;
+    &:hover{
+        background-color: $bg_color_2 ;
+    }
+    &:active{
+        background-color: $bg_color;
+    }
+}
+
+.label_tag{
+    display: flex;
+    align-items: center;
+    height: 20px;
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    top: 90%;
+    margin: 0 auto; 
+    background-color: rgb(106, 183, 106);
+    padding: 5px 10px 5px 10px;
+    border-radius: 20px;
 }

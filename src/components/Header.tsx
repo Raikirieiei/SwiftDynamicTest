@@ -28,7 +28,7 @@ const Header = () => {
     <div className='header_text'>{location.pathname == "/" ? t('main_title') : location.pathname == "/shape" ? t('shape_title'): t('form_title')}</div>
     <div className="dropdown">
       <button className='dropdown_box' onClick={handleOpenDropdown}>{t('change_lang')} <AiFillCaretDown /> </button>
-      {isOpen ? (
+      {isOpen && (
         <ul className="dropdown_menu">
           <li className="menu-item">
             <button onClick={() => changeLanguage('th')}>{t('change_lang_th')}</button>
@@ -37,7 +37,7 @@ const Header = () => {
             <button onClick={() => changeLanguage('en')}>{t('change_lang_en')}</button>
           </li>
         </ul>
-      ) : null}
+      )}
     </div>
   </div>
   )

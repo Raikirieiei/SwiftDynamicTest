@@ -1,13 +1,4 @@
 .shape_container {
-  display: flex;
-  justify-content: space-between;
-}
-
-.shape_function {
-  display: flex;
-}
-
-.shape_button {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  padding-left: 100px;
+  padding-right: 100px;
 }/*# sourceMappingURL=shapepage.css.map */

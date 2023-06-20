@@ -8,5 +8,9 @@
     },
     "change_lang": "ไทย",
     "change_lang_en": "อังกฤษ",
-    "change_lang_th": "ไทย"
+    "change_lang_th": "ไทย",
+    "move_label":{
+        "shape": "เลื่อนรูปแบบ",
+        "position": "เปลี่ยนตำแหน่ง"
+    }
 }

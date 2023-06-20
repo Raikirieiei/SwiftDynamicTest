@@ -8,6 +8,10 @@
     },
     "change_lang": "EN",
     "change_lang_en": "EN",
-    "change_lang_th": "TH"
+    "change_lang_th": "TH",
+    "move_label":{
+        "shape": "Move shape",
+        "position": "Move position"
+    }
 
 }
