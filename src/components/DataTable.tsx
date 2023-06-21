@@ -22,7 +22,7 @@ type PropData = {
 }
 
 
-const DataTable: React.FC<PropData> = ({formData}) => {
+const DataTable: React.FC<PropData> = ({ formData }) => {
 
   const { t } = useTranslation()
   const [form] = Form.useForm();
@@ -39,7 +39,7 @@ const DataTable: React.FC<PropData> = ({formData}) => {
     setData(items)
   }, [formData])
 
-  
+
   const columns: ColumnsType<DataType> = [
     {
       title: t('table.name'),
@@ -76,10 +76,19 @@ const DataTable: React.FC<PropData> = ({formData}) => {
     {
       title: t('table.edit'),
       dataIndex: 'edit',
+      render: (_, record: { key: React.Key }) =>
+        data.length >= 1 ? (
+          <>
+            <Popconfirm title="Sure to edit?" >
+              <a style={{ paddingRight: '10px'}}>Edit</a>
+            </Popconfirm>
+            <Popconfirm title="Sure to delete?" onConfirm={() => handleDeleteColumn(record.key)}>
+              <a>Delete</a>
+            </Popconfirm>
+          </>
+        ) : null,
     },
   ];
-
-
 
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
     setSelectedRowKeys(newSelectedRowKeys);
@@ -111,6 +120,11 @@ const DataTable: React.FC<PropData> = ({formData}) => {
   const handleDelete = (keys: React.Key[]) => {
     const updatedData = data.filter((item) => !keys.includes(item.key));
     setData(updatedData);
+  };
+
+  const handleDeleteColumn = (key: React.Key) => {
+    const newData = data.filter((item) => item.key !== key);
+    setData(newData);
   };
 
 
