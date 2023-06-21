@@ -9,7 +9,7 @@ import './App.css';
 
 function App() {
   return (
-    <div style={{background: 'linear-gradient(to right, #6eda78 , #ffa200)', height: '100vh'}}>
+    <div style={{background: 'linear-gradient(to right, #6eda78 , #ffa200)', height: '100vh', overflow: 'auto'}}>
       <BrowserRouter>
       <Header/>
         <Routes>

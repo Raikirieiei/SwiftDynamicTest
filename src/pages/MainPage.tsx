@@ -17,10 +17,10 @@ const MainPage = () => {
     <div>
 
         <div className='main_container'>
-          <div style={{width: '300px'}}>
+          <div style={{width: '250px'}}>
             <Card title={t('sub_title.sub1')} onClick={() => navigateTo('/shape')}/>
           </div>
-          <div style={{width: '300px'}}>
+          <div style={{width: '250px'}}>
             <Card title={t('sub_title.sub2')} onClick={() => navigateTo('/form')}/>
           </div>    
         </div>

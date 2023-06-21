@@ -12,6 +12,46 @@
     "move_label":{
         "shape": "Move shape",
         "position": "Move position"
+    },
+    "back_button":  "Main page",
+    "form": {
+        "prefix": "Prefix",
+        "name": "Name",
+        "surname": "Surname",
+        "birthday": "Birthdate",
+        "nationality": "Nationality",
+        "id_number": "ID Number",
+        "gender": "Gender",
+        "tel_number": "Telephone number",
+        "travel_id": "Passport",
+        "expected_salary": "Expedted Salary",
+        "clear_form": "Clear",
+        "submit_form": "Submit",
+        "male": "Male",
+        "female": "Female",
+        "other": "Other",
+        "placeholder": {
+            "prefix": "Please select prefix",
+            "birthday": "MM/DD/YYYY",
+            "nation": "--Please Select--"
+        },
+        "nation":{
+            "th": "Thai",
+            "en": "Europe",
+            "cn": "China"
+        },
+        "mr": "Mr.",
+        "ms": "Ms.",
+        "mrs": "Mrs."
+    },
+    "table":{
+        "select_all": "Select All",
+        "delete": "Delete",
+        "name": "Name",
+        "gender": "Gender",
+        "tel": "Telephone number",
+        "nationality": "Nationality",
+        "edit": "Manage"
     }
 
 }

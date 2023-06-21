@@ -6,12 +6,14 @@
   padding: 10px;
   height: 150px;
   border-radius: 10px;
+  transition: 0.5s;
 }
 .card_container:hover {
   background-color: #ffa200;
 }
 .card_container:active {
   background-color: #6eda78;
+  transition: 0.1s;
 }
 
 .label_tag {
