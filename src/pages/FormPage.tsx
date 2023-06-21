@@ -22,6 +22,9 @@ import { useNavigate } from 'react-router-dom';
 
 const FormPage = () => {
 
+  const storedValue = localStorage.getItem('dataKey');
+  const initialFormValues = storedValue ? JSON.parse(storedValue) : [];
+  const [storedData, setStoredData] = useState<Object[]>(initialFormValues)
   const [formValues, setFormValues] = useState([]);
 
   const { t } = useTranslation()
@@ -70,7 +73,6 @@ const FormPage = () => {
     const { id_number: { id_part1, id_part2, id_part3, id_part4, id_part5 }, ...rest1 } = values;
     const id_number = `${id_part1}${id_part2}${id_part3}${id_part4}${id_part5}`;
 
-    // const { tel_number: { part1tel, part2tel }, ...rest2 } = values;
     let { tel_number: { tel_part1, tel_part2 }, ...rest2 } = values;
     switch (tel_part1) {
       case "tel_th":
@@ -89,10 +91,15 @@ const FormPage = () => {
     const tel_number = `${tel_part1}${tel_part2}`;
 
     setFormValues({ ...values, id_number, tel_number })
+  
   };
 
+
   useEffect(() => {
-    console.log(formValues); 
+    if(formValues.length != 0){
+      setStoredData([...storedData, formValues])
+    }
+    localStorage.setItem("dataKey", JSON.stringify(storedData))
   }, [formValues])
 
   const onFinishFailed = (errorInfo: any) => {
@@ -295,7 +302,7 @@ const FormPage = () => {
                       name="expected_salary"
                       rules={[{ required: true, message: 'Please select your prefix' }]}
                     >
-                      <Input />
+                      <InputNumber style={{ width: '100%'}} />
                     </Form.Item>
                   </Col>
                   <Col span={6} style={{ display: 'flex', justifyContent: 'center' }}>
@@ -323,7 +330,7 @@ const FormPage = () => {
           </Col>
         </Row>
       </div>
-      <Table/>
+      <Table formData={formValues}/>
     </>
   )
 }

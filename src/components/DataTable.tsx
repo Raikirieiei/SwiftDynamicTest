@@ -17,9 +17,12 @@ interface DataType {
   nationality: string;
 }
 
+type PropData = {
+  formData: Array<DataType>
+}
 
 
-const DataTable: React.FC = () => {
+const DataTable: React.FC<PropData> = ({formData}) => {
 
   const { t } = useTranslation()
   const [form] = Form.useForm();
@@ -31,18 +34,10 @@ const DataTable: React.FC = () => {
 
 
   useEffect(() => {
-    let arr = []
-    for (let i = 0; i < 46; i++) {
-      arr.push({
-        key: i,
-        name: `Edward King ${i}`,
-        gender: 'female',
-        tel_number: i + (i + 1),
-        nationality: 'eiei'
-      });
-    }
-    setData(arr)
-  }, [])
+    const dataKey = localStorage.getItem('dataKey');
+    const items = dataKey ? JSON.parse(dataKey) : [];
+    setData(items)
+  }, [formData])
 
   
   const columns: ColumnsType<DataType> = [
