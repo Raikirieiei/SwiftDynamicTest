@@ -51,7 +51,7 @@ const ShapePage = () => {
   return (
     <div className='shape_container'>
 
-      <Row justify="center" gutter={24} style={{ paddingBottom: '50px' }}>
+      <Row justify="center" gutter={24} style={{ paddingBottom: '20px' }}>
 
         <Col span={6}>
           <Card shape='triangle_left' label={t('move_label.shape')} onClick={handleMoveLeft}/>
@@ -66,6 +66,8 @@ const ShapePage = () => {
         </Col>
 
       </Row>
+
+      <Divider></Divider>
 
       <Row justify={rowJustify? 'end' : 'center'} gutter={24} style={{ paddingBottom: '20px' }}>
 

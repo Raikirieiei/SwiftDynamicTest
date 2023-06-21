@@ -1,6 +1,6 @@
 import React from 'react'
-import './card.css'
-import './shape.css'
+import './css/card.css'
+import './css/shape.css'
 
 type CardProps = {
     title?: string;
