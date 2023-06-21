@@ -24,7 +24,7 @@
         "gender": "Gender",
         "tel_number": "Telephone number",
         "travel_id": "Passport",
-        "expected_salary": "Expedted Salary",
+        "expected_salary": "Expected Salary",
         "clear_form": "Clear",
         "submit_form": "Submit",
         "male": "Male",
@@ -51,7 +51,20 @@
         "gender": "Gender",
         "tel": "Telephone number",
         "nationality": "Nationality",
-        "edit": "Manage"
+        "edit": "Manage",
+        "edit_info": "Edit"
+    },
+    "form_alert":{
+        "prefix": "Please select prefix",
+        "name": "Please input your name",
+        "surname": "Please input your surname",
+        "birthdate": "Please select your birthdate",
+        "nationality": "Please select your nationality",
+        "gender": "Please select your gender",
+        "tel_prefix": "Please select your telephone prefix",
+        "tel_number": "Please input your telephone number",
+        "salary": "Please input your expected salary"
     }
+
 
 }

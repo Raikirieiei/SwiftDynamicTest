@@ -80,10 +80,10 @@ const DataTable: React.FC<PropData> = ({ formData }) => {
         data.length >= 1 ? (
           <>
             <Popconfirm title="Sure to edit?" >
-              <a style={{ paddingRight: '10px'}}>Edit</a>
+              <a style={{ paddingRight: '10px'}}>{t('table.edit_info')}</a>
             </Popconfirm>
             <Popconfirm title="Sure to delete?" onConfirm={() => handleDeleteColumn(record.key)}>
-              <a>Delete</a>
+              <a>{t('table.delete')}</a>
             </Popconfirm>
           </>
         ) : null,

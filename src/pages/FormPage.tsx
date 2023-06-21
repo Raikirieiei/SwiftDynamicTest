@@ -126,7 +126,7 @@ const FormPage = () => {
                     <Form.Item
                       label={t('form.prefix')}
                       name="prefix"
-                      rules={[{ required: true, message: 'Please select your prefix' }]}
+                      rules={[{ required: true, message: t('form_alert.prefix') }]}
                     >
                       <Select placeholder={t('form.placeholder.prefix')}>
                         {prefixArray.map(item =>
@@ -139,7 +139,7 @@ const FormPage = () => {
                     <Form.Item
                       label={t('form.name')}
                       name="name"
-                      rules={[{ required: true, message: 'Please input your password!' }]}
+                      rules={[{ required: true, message: t('form_alert.name') }]}
                     >
                       <Input />
                     </Form.Item>
@@ -148,7 +148,7 @@ const FormPage = () => {
                     <Form.Item
                       label={t('form.surname')}
                       name="surname"
-                      rules={[{ required: true, message: 'Please input your password!' }]}
+                      rules={[{ required: true, message: t('form_alert.surname') }]}
                     >
                       <Input />
                     </Form.Item>
@@ -160,7 +160,7 @@ const FormPage = () => {
                     <Form.Item
                       label={t('form.birthday')}
                       name="birthday"
-                      rules={[{ required: true, message: 'Please select your prefix' }]}
+                      rules={[{ required: true, message: t('form_alert.birthdate')}]}
                     >
                       <DatePicker
                         // onChange={onChange}
@@ -174,7 +174,7 @@ const FormPage = () => {
                     <Form.Item
                       label={t('form.nationality')}
                       name="nationality"
-                      rules={[{ required: true, message: 'Please input your password!' }]}
+                      rules={[{ required: true, message: t('form_alert.nationality') }]}
                     >
                       <Select placeholder={t('form.placeholder.nation')}>
                         {nationArray.map(item =>
@@ -241,7 +241,7 @@ const FormPage = () => {
                     <Form.Item
                       label={t('form.gender')}
                       name="gender"
-                      rules={[{ required: true, message: 'Please select your gender' }]}
+                      rules={[{ required: true, message: t('form_alert.gender') }]}
                     >
                       <Radio.Group
                       >
@@ -261,7 +261,7 @@ const FormPage = () => {
                       <Form.Item
                         name={['tel_number', 'tel_part1']}
                         noStyle
-                        rules={[{ required: true, message: 'Tel prefix is required' }]}
+                        rules={[{ required: true, message: t('form_alert.tel_prefix') }]}
                         dependencies={['address']}
                       >
                         <Select style={{ width: '30%' }}>
@@ -275,7 +275,7 @@ const FormPage = () => {
                       <Form.Item
                         name={['tel_number', 'tel_part2']}
                         noStyle
-                        rules={[{ required: true, message: 'Tel number is required' }]}
+                        rules={[{ required: true, message: t('form_alert.tel_number') }]}
                         dependencies={['address']}
                       >
                         <InputNumber style={{ width: '60%' }} />
@@ -300,7 +300,7 @@ const FormPage = () => {
                     <Form.Item
                       label={t('form.expected_salary')}
                       name="expected_salary"
-                      rules={[{ required: true, message: 'Please select your prefix' }]}
+                      rules={[{ required: true, message: t('form_alert.salary') }]}
                     >
                       <InputNumber style={{ width: '100%'}} />
                     </Form.Item>
