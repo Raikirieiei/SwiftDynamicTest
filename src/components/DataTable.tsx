@@ -82,7 +82,7 @@ const DataTable: React.FC = () => {
   const isEditing = (record: DataType) => record.key === editingKey;
 
   const edit = (record: Partial<DataType> & { key: any }) => {
-    form.setFieldsValue({ name: '', age: '', address: '', ...record });
+    form.setFieldsValue({ name: '', gender: '', tel_number: '', nationality: '',  ...record });
     setEditingKey(record.key);
   };
 
@@ -114,19 +114,29 @@ const DataTable: React.FC = () => {
       title: t('table.name'),
       dataIndex: 'name',
       key: 'name',
+      width: '15%',
       sorter: (a: any, b: any) => a.name.localeCompare(b.name),
       sortOrder: sortedInfo.columnKey === 'name' ? sortedInfo.order : null,
       ellipsis: true,
-      editable: true
+      editable: true,
     },
     {
       title: t('table.gender'),
       dataIndex: 'gender',
       key: 'gender',
+      width: '15%',
       sorter: (a: any, b: any) => a.gender.localeCompare(b.gender),
       sortOrder: sortedInfo.columnKey === 'gender' ? sortedInfo.order : null,
       ellipsis: true,
-      editable: true
+      editable: true,
+      render: (value: string) => {
+        const genderMap: { [key: string]: string } = {
+          male: 'Male',
+          female: 'Female',
+          other: 'Not Specify',
+        };
+        return genderMap[value] || value;
+      },
     },
     {
       title: t('table.tel'),
@@ -141,14 +151,24 @@ const DataTable: React.FC = () => {
       title: t('table.nationality'),
       dataIndex: 'nationality',
       key: 'nationality',
+      width: '20%',
       sorter: (a: any, b: any) => a.nationality.localeCompare(b.nationality),
       sortOrder: sortedInfo.columnKey === 'nationality' ? sortedInfo.order : null,
       ellipsis: true,
-      editable: true
+      editable: true,
+      render: (value: string) => {
+        const nationalityMap: { [key: string]: string } = {
+          en: 'English',
+          th: 'Thai',
+          cn: 'China',
+        };
+        return nationalityMap[value] || value;
+      },
     },
     {
       title: t('table.edit'),
       dataIndex: 'edit',
+      width: '15%',
       render: (_: any, record: DataType) => {
         const editable = isEditing(record);
         return editable ? (

@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { ChangeEvent } from 'react'
 import './css/formpage.css'
 import {
   Input,
   Form,
   Button,
   Col,
-  Divider,
   Row,
-  Checkbox,
   Select,
   DatePicker,
   Radio,
@@ -129,7 +127,7 @@ const FormPage = () => {
                     <Form.Item
                       label={t('form.name')}
                       name="name"
-                      rules={[{ required: true, message: t('form_alert.name') }]}
+                      rules={[{ required: true, message: t('form_alert.name') , pattern: /^[A-Za-z]+$/ }]}
                     >
                       <Input />
                     </Form.Item>
@@ -138,7 +136,7 @@ const FormPage = () => {
                     <Form.Item
                       label={t('form.surname')}
                       name="surname"
-                      rules={[{ required: true, message: t('form_alert.surname') }]}
+                      rules={[{ required: true, message: t('form_alert.surname'), pattern: /^[A-Za-z]+$/ }]}
                     >
                       <Input />
                     </Form.Item>
@@ -181,13 +179,13 @@ const FormPage = () => {
                     <Form.Item
                       label={t('form.id_number')}
                     >
-                      <Space.Compact style={{ alignItems: 'center'}}>
                         <Form.Item
                           name={['id_number', 'id_part1']}
                           noStyle
                           dependencies={['id_number']}
+                          
                         >
-                          <InputNumber style={{ width: '20%' }} />
+                          <InputNumber maxLength={2} style={{ width: '10%' }} controls={false} />
                         </Form.Item>
                         <span style={{ paddingLeft: '5px', paddingRight: '5px' }}> - </span>
                         <Form.Item
@@ -195,7 +193,7 @@ const FormPage = () => {
                           noStyle
                           dependencies={['id_number']}
                         >
-                          <InputNumber style={{ width: '50%' }} />
+                          <InputNumber maxLength={3} style={{ width: '20%' }} controls={false} />
                         </Form.Item>
                         <span style={{ paddingLeft: '5px', paddingRight: '5px' }}> - </span>
                         <Form.Item
@@ -203,7 +201,7 @@ const FormPage = () => {
                           noStyle
                           dependencies={['id_number']}
                         >
-                          <InputNumber style={{ width: '50%' }} />
+                          <InputNumber maxLength={3} style={{ width: '20%' }} controls={false} />
                         </Form.Item>
                         <span style={{ paddingLeft: '5px', paddingRight: '5px' }}> - </span>
                         <Form.Item
@@ -211,7 +209,7 @@ const FormPage = () => {
                           noStyle
                           dependencies={['id_number']}
                         >
-                          <InputNumber style={{ width: '30%' }} />
+                          <InputNumber maxLength={3} style={{ width: '10%' }} controls={false} />
                         </Form.Item>
                         <span style={{ paddingLeft: '5px', paddingRight: '5px' }}> - </span>
                         <Form.Item
@@ -219,9 +217,8 @@ const FormPage = () => {
                           noStyle
                           dependencies={['id_number']}
                         >
-                          <Input style={{ width: '20%' }} />
+                          <InputNumber maxLength={2} style={{ width: '10%' }}  controls={false}/>
                         </Form.Item>
-                      </Space.Compact>
                     </Form.Item>
                   </Col>
                 </Row>
@@ -247,6 +244,9 @@ const FormPage = () => {
                   <Col span={16}>
                     <Form.Item
                       label={t('form.tel_number')}
+                      rules={[
+                        { required: true, message: 'Please enter a tel number' },
+                      ]}
                     >
                       <Form.Item
                         name={['tel_number', 'tel_part1']}
@@ -268,7 +268,7 @@ const FormPage = () => {
                         rules={[{ required: true, message: t('form_alert.tel_number') }]}
                         dependencies={['address']}
                       >
-                        <InputNumber style={{ width: '60%' }} />
+                        <InputNumber style={{ width: '60%' }} controls={false} />
                       </Form.Item>
                     </Form.Item>
                   </Col>
@@ -280,7 +280,7 @@ const FormPage = () => {
                       label={t('form.travel_id')}
                       name="travel_id"
                     >
-                      <Input />
+                      <InputNumber style={{width:'100%'}} controls={false} />
                     </Form.Item>
                   </Col>
                 </Row>
@@ -292,7 +292,7 @@ const FormPage = () => {
                       name="expected_salary"
                       rules={[{ required: true, message: t('form_alert.salary') }]}
                     >
-                      <InputNumber style={{ width: '100%'}} />
+                      <InputNumber style={{ width: '100%'}}  controls={false}/>
                     </Form.Item>
                   </Col>
                   <Col span={6} style={{ display: 'flex', justifyContent: 'center' }}>
