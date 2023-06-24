@@ -7,6 +7,10 @@ import type { TableRowSelection } from 'antd/es/table/interface';
 import { useState, useEffect } from 'react';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
 import type { SorterResult } from 'antd/es/table/interface';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { deleteData, deleteOneData, updateData } from '../redux/dataSlice';
+import { RootState } from '../redux/store';
 
 
 interface DataType {
@@ -17,78 +21,175 @@ interface DataType {
   nationality: string;
 }
 
-type PropData = {
-  formData: Array<DataType>
+interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
+  editing: boolean;
+  dataIndex: string;
+  title: any;
+  inputType: 'number' | 'text';
+  record: DataType;
+  index: number;
+  children: React.ReactNode;
 }
 
+const EditableCell: React.FC<EditableCellProps> = ({
+  editing,
+  dataIndex,
+  title,
+  inputType,
+  record,
+  index,
+  children,
+  ...restProps
+}) => {
+  const inputNode = inputType === 'number' ? <InputNumber /> : <Input />;
 
-const DataTable: React.FC<PropData> = ({ formData }) => {
+  return (
+    <td {...restProps}>
+      {editing ? (
+        <Form.Item
+          name={dataIndex}
+          style={{ margin: 0 }}
+          rules={[
+            {
+              required: true,
+              message: `Please Input ${title}!`,
+            },
+          ]}
+        >
+          {inputNode}
+        </Form.Item>
+      ) : (
+        children
+      )}
+    </td>
+  );
+};
+
+const DataTable: React.FC = () => {
 
   const { t } = useTranslation()
   const [form] = Form.useForm();
 
+  const dispatch = useDispatch();
+  const data = useSelector((state: RootState) => state.data.data);
+
+  const [editingKey, setEditingKey] = useState('');
+
   const [sortedInfo, setSortedInfo] = useState<SorterResult<DataType>>({});
-  const [data, setData] = useState<DataType[]>([])
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const [selectAllChecked, setSelectAllChecked] = useState(false);
 
+  const isEditing = (record: DataType) => record.key === editingKey;
 
-  useEffect(() => {
-    const dataKey = localStorage.getItem('dataKey');
-    const items = dataKey ? JSON.parse(dataKey) : [];
-    setData(items)
-  }, [formData])
+  const edit = (record: Partial<DataType> & { key: any }) => {
+    form.setFieldsValue({ name: '', age: '', address: '', ...record });
+    setEditingKey(record.key);
+  };
+
+  const cancel = () => {
+    setEditingKey('');
+  };
+
+  const save = async (key: React.Key) => {
+    try {
+      const row = (await form.validateFields()) as DataType;
+
+      const newData = [...data];
+      const index = newData.findIndex((item) => key === item.key);
+      if (index > -1) {
+        dispatch(updateData({ ...row })); // Dispatch updateData with updated fields
+        setEditingKey('');
+      } else {
+        dispatch(updateData({ ...row }));
+        setEditingKey('');
+      }
+    } catch (errInfo) {
+      console.log('Validate Failed:', errInfo);
+    }
+  };
 
 
-  const columns: ColumnsType<DataType> = [
+  const columns = [
     {
       title: t('table.name'),
       dataIndex: 'name',
       key: 'name',
-      sorter: (a, b) => a.name.localeCompare(b.name),
+      sorter: (a: any, b: any) => a.name.localeCompare(b.name),
       sortOrder: sortedInfo.columnKey === 'name' ? sortedInfo.order : null,
       ellipsis: true,
+      editable: true
     },
     {
       title: t('table.gender'),
       dataIndex: 'gender',
       key: 'gender',
-      sorter: (a, b) => a.gender.localeCompare(b.gender),
+      sorter: (a: any, b: any) => a.gender.localeCompare(b.gender),
       sortOrder: sortedInfo.columnKey === 'gender' ? sortedInfo.order : null,
       ellipsis: true,
+      editable: true
     },
     {
       title: t('table.tel'),
       dataIndex: 'tel_number',
       key: 'tel_number',
-      sorter: (a, b) => a.tel_number - b.tel_number,
+      sorter: (a: any, b: any) => a.tel_number - b.tel_number,
       sortOrder: sortedInfo.columnKey === 'tel_number' ? sortedInfo.order : null,
       ellipsis: true,
+      editable: true
     },
     {
       title: t('table.nationality'),
       dataIndex: 'nationality',
       key: 'nationality',
-      sorter: (a, b) => a.nationality.localeCompare(b.nationality),
+      sorter: (a: any, b: any) => a.nationality.localeCompare(b.nationality),
       sortOrder: sortedInfo.columnKey === 'nationality' ? sortedInfo.order : null,
       ellipsis: true,
+      editable: true
     },
     {
       title: t('table.edit'),
       dataIndex: 'edit',
-      render: (_, record: { key: React.Key }) =>
-        data.length >= 1 ? (
-          <>
-            <Popconfirm title="Sure to edit?" >
-              <a style={{ paddingRight: '10px'}}>{t('table.edit_info')}</a>
+      render: (_: any, record: DataType) => {
+        const editable = isEditing(record);
+        return editable ? (
+          <span>
+            <Typography.Link onClick={() => save(record.key)} style={{ marginRight: 8 }}>
+              Save
+            </Typography.Link>
+            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+              <a>Cancel</a>
             </Popconfirm>
+          </span>
+        ) : (
+          <>
+            <Typography.Link disabled={editingKey !== ''} onClick={() => edit(record)}>
+              <a style={{ paddingRight: '10px' }}>{t('table.edit_info')}</a>
+            </Typography.Link>
             <Popconfirm title="Sure to delete?" onConfirm={() => handleDeleteColumn(record.key)}>
               <a>{t('table.delete')}</a>
             </Popconfirm>
           </>
-        ) : null,
+        );
+      },
     },
   ];
+
+  const mergedColumns = columns.map((col) => {
+    if (!col.editable) {
+      return col;
+    }
+    return {
+      ...col,
+      onCell: (record: DataType) => ({
+        record,
+        inputType: col.dataIndex === 'age' ? 'number' : 'text',
+        dataIndex: col.dataIndex,
+        title: col.title,
+        editing: isEditing(record),
+      }),
+    };
+  });
+
 
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
     setSelectedRowKeys(newSelectedRowKeys);
@@ -102,6 +203,7 @@ const DataTable: React.FC<PropData> = ({ formData }) => {
 
   const handleSelectAllChange = (e: CheckboxChangeEvent) => {
     const checked = e.target.checked;
+
     setSelectAllChecked(checked);
     if (checked) {
       setSelectedRowKeys(data.map((item) => item.key));
@@ -118,13 +220,11 @@ const DataTable: React.FC<PropData> = ({ formData }) => {
 
 
   const handleDelete = (keys: React.Key[]) => {
-    const updatedData = data.filter((item) => !keys.includes(item.key));
-    setData(updatedData);
+    dispatch(deleteData(keys));
   };
 
   const handleDeleteColumn = (key: React.Key) => {
-    const newData = data.filter((item) => item.key !== key);
-    setData(newData);
+    dispatch(deleteOneData(key));
   };
 
 
@@ -150,11 +250,17 @@ const DataTable: React.FC<PropData> = ({ formData }) => {
         </Col>
       </Row>
       <Table
+        components={{
+          body: {
+            cell: EditableCell,
+          },
+        }}
         rowSelection={rowSelection}
         dataSource={data}
-        columns={columns}
+        columns={mergedColumns}
         pagination={{
           pageSize: 3,
+          onChange: cancel,
         }}
         onChange={handleChange}
       />

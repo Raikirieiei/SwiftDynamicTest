@@ -19,18 +19,17 @@ import {
 import { useTranslation } from 'react-i18next';
 import Table from '../components/DataTable';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addData } from '../redux/dataSlice';
 
 const FormPage = () => {
-
-  const storedValue = localStorage.getItem('dataKey');
-  const initialFormValues = storedValue ? JSON.parse(storedValue) : [];
-  const [storedData, setStoredData] = useState<Object[]>(initialFormValues)
-  const [formValues, setFormValues] = useState([]);
 
   const { t } = useTranslation()
   const { Option } = Select;
   const navigate = useNavigate()
   const [form] = Form.useForm();
+
+  const dispatch = useDispatch();
 
   const prefixArray = [
     { label: t('form.mr'), value: 'mr' },
@@ -90,17 +89,8 @@ const FormPage = () => {
     }
     const tel_number = `${tel_part1}${tel_part2}`;
 
-    setFormValues({ ...values, id_number, tel_number })
-  
+    dispatch(addData({...values, id_number, tel_number}));
   };
-
-
-  useEffect(() => {
-    if(formValues.length != 0){
-      setStoredData([...storedData, formValues])
-    }
-    localStorage.setItem("dataKey", JSON.stringify(storedData))
-  }, [formValues])
 
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
@@ -191,7 +181,7 @@ const FormPage = () => {
                     <Form.Item
                       label={t('form.id_number')}
                     >
-                      <Space.Compact>
+                      <Space.Compact style={{ alignItems: 'center'}}>
                         <Form.Item
                           name={['id_number', 'id_part1']}
                           noStyle
@@ -254,7 +244,7 @@ const FormPage = () => {
                 </Row>
 
                 <Row gutter={10} style={{ paddingBottom: '5px' }}>
-                  <Col span={12}>
+                  <Col span={16}>
                     <Form.Item
                       label={t('form.tel_number')}
                     >
@@ -330,7 +320,7 @@ const FormPage = () => {
           </Col>
         </Row>
       </div>
-      <Table formData={formValues}/>
+      <Table/>
     </>
   )
 }
