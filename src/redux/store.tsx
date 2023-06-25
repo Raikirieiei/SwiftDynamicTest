@@ -26,7 +26,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
   getDefaultMiddleware({
     serializableCheck: {
-      ignoredActions: ['data/addData', FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      ignoredActions: ['data/addData', 'data/updateData', FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       ignoredPaths: ['data.data'],
     },
   }),

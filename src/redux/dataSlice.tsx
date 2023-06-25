@@ -31,8 +31,17 @@ const dataSlice = createSlice({
         const { key, ...updatedData } = action.payload;
         const dataIndex = state.data.findIndex((item) => item.key === key);
         if (dataIndex !== -1) {
-          state.data[dataIndex] = { ...state.data[dataIndex], ...updatedData };
+          const updatedArray = [
+            ...state.data.slice(0, dataIndex),
+            { ...state.data[dataIndex], ...updatedData },
+            ...state.data.slice(dataIndex + 1)
+          ];
+          return {
+            ...state,
+            data: updatedArray
+          };
         }
+        return state;
     },
     deleteData: (state, action: PayloadAction<React.Key[]>) => {
         state.data = state.data.filter((item) => !action.payload.includes(item.key));

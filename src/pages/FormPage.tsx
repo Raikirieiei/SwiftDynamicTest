@@ -151,7 +151,6 @@ const FormPage = () => {
                       rules={[{ required: true, message: t('form_alert.birthdate')}]}
                     >
                       <DatePicker
-                        // onChange={onChange}
                         placeholder={t('form.placeholder.birthday')}
                         style={{ width: '100%' }}
                         format={customFormat}
@@ -243,10 +242,11 @@ const FormPage = () => {
                 <Row gutter={10} style={{ paddingBottom: '5px' }}>
                   <Col span={16}>
                     <Form.Item
-                      label={t('form.tel_number')}
-                      rules={[
-                        { required: true, message: 'Please enter a tel number' },
-                      ]}
+                      label={            
+                      <span>
+                        <span style={{ color: 'red' }}>*</span> {t('form.tel_number')}
+                      </span>
+                     }
                     >
                       <Form.Item
                         name={['tel_number', 'tel_part1']}
