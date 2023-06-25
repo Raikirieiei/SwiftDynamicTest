@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useState } from 'react'
 import { AiFillCaretDown } from "react-icons/ai";
 import { useLocation } from 'react-router-dom';
-import { Col, Divider, Row } from 'antd';
+import { Col, Row } from 'antd';
 
 const Header = () => {
   const { t } = useTranslation()
@@ -27,7 +27,7 @@ const Header = () => {
     <div className='main_header'>
       <Row>
         <Col span={22}>
-          <div className='header_text'>{location.pathname == "/" ? t('main_title') : location.pathname == "/shape" ? t('shape_title') : t('form_title')}</div>
+          <div className='header_text'>{location.pathname === "/" ? t('main_title') : location.pathname === "/shape" ? t('shape_title') : t('form_title')}</div>
         </Col>
         <Col span={2} style={{ display: 'flex',alignItems: 'center', height: '40px'}}>
           <div className="dropdown">

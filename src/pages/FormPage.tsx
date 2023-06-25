@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { ChangeEvent } from 'react'
 import './css/formpage.css'
 import {
   Input,
   Form,
   Button,
   Col,
-  Divider,
   Row,
-  Checkbox,
   Select,
   DatePicker,
   Radio,
@@ -19,18 +17,17 @@ import {
 import { useTranslation } from 'react-i18next';
 import Table from '../components/DataTable';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addData } from '../redux/dataSlice';
 
 const FormPage = () => {
-
-  const storedValue = localStorage.getItem('dataKey');
-  const initialFormValues = storedValue ? JSON.parse(storedValue) : [];
-  const [storedData, setStoredData] = useState<Object[]>(initialFormValues)
-  const [formValues, setFormValues] = useState([]);
 
   const { t } = useTranslation()
   const { Option } = Select;
   const navigate = useNavigate()
   const [form] = Form.useForm();
+
+  const dispatch = useDispatch();
 
   const prefixArray = [
     { label: t('form.mr'), value: 'mr' },
@@ -90,17 +87,8 @@ const FormPage = () => {
     }
     const tel_number = `${tel_part1}${tel_part2}`;
 
-    setFormValues({ ...values, id_number, tel_number })
-  
+    dispatch(addData({...values, id_number, tel_number}));
   };
-
-
-  useEffect(() => {
-    if(formValues.length != 0){
-      setStoredData([...storedData, formValues])
-    }
-    localStorage.setItem("dataKey", JSON.stringify(storedData))
-  }, [formValues])
 
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
@@ -139,7 +127,7 @@ const FormPage = () => {
                     <Form.Item
                       label={t('form.name')}
                       name="name"
-                      rules={[{ required: true, message: t('form_alert.name') }]}
+                      rules={[{ required: true, message: t('form_alert.name') , pattern: /^[A-Za-z]+$/ }]}
                     >
                       <Input />
                     </Form.Item>
@@ -148,7 +136,7 @@ const FormPage = () => {
                     <Form.Item
                       label={t('form.surname')}
                       name="surname"
-                      rules={[{ required: true, message: t('form_alert.surname') }]}
+                      rules={[{ required: true, message: t('form_alert.surname'), pattern: /^[A-Za-z]+$/ }]}
                     >
                       <Input />
                     </Form.Item>
@@ -163,7 +151,6 @@ const FormPage = () => {
                       rules={[{ required: true, message: t('form_alert.birthdate')}]}
                     >
                       <DatePicker
-                        // onChange={onChange}
                         placeholder={t('form.placeholder.birthday')}
                         style={{ width: '100%' }}
                         format={customFormat}
@@ -191,13 +178,13 @@ const FormPage = () => {
                     <Form.Item
                       label={t('form.id_number')}
                     >
-                      <Space.Compact>
                         <Form.Item
                           name={['id_number', 'id_part1']}
                           noStyle
                           dependencies={['id_number']}
+                          
                         >
-                          <InputNumber style={{ width: '20%' }} />
+                          <InputNumber maxLength={2} style={{ width: '10%' }} controls={false} />
                         </Form.Item>
                         <span style={{ paddingLeft: '5px', paddingRight: '5px' }}> - </span>
                         <Form.Item
@@ -205,7 +192,7 @@ const FormPage = () => {
                           noStyle
                           dependencies={['id_number']}
                         >
-                          <InputNumber style={{ width: '50%' }} />
+                          <InputNumber maxLength={3} style={{ width: '20%' }} controls={false} />
                         </Form.Item>
                         <span style={{ paddingLeft: '5px', paddingRight: '5px' }}> - </span>
                         <Form.Item
@@ -213,7 +200,7 @@ const FormPage = () => {
                           noStyle
                           dependencies={['id_number']}
                         >
-                          <InputNumber style={{ width: '50%' }} />
+                          <InputNumber maxLength={3} style={{ width: '20%' }} controls={false} />
                         </Form.Item>
                         <span style={{ paddingLeft: '5px', paddingRight: '5px' }}> - </span>
                         <Form.Item
@@ -221,7 +208,7 @@ const FormPage = () => {
                           noStyle
                           dependencies={['id_number']}
                         >
-                          <InputNumber style={{ width: '30%' }} />
+                          <InputNumber maxLength={3} style={{ width: '10%' }} controls={false} />
                         </Form.Item>
                         <span style={{ paddingLeft: '5px', paddingRight: '5px' }}> - </span>
                         <Form.Item
@@ -229,9 +216,8 @@ const FormPage = () => {
                           noStyle
                           dependencies={['id_number']}
                         >
-                          <Input style={{ width: '20%' }} />
+                          <InputNumber maxLength={2} style={{ width: '10%' }}  controls={false}/>
                         </Form.Item>
-                      </Space.Compact>
                     </Form.Item>
                   </Col>
                 </Row>
@@ -254,9 +240,13 @@ const FormPage = () => {
                 </Row>
 
                 <Row gutter={10} style={{ paddingBottom: '5px' }}>
-                  <Col span={12}>
+                  <Col span={16}>
                     <Form.Item
-                      label={t('form.tel_number')}
+                      label={            
+                      <span>
+                        <span style={{ color: 'red' }}>*</span> {t('form.tel_number')}
+                      </span>
+                     }
                     >
                       <Form.Item
                         name={['tel_number', 'tel_part1']}
@@ -278,7 +268,7 @@ const FormPage = () => {
                         rules={[{ required: true, message: t('form_alert.tel_number') }]}
                         dependencies={['address']}
                       >
-                        <InputNumber style={{ width: '60%' }} />
+                        <InputNumber style={{ width: '60%' }} controls={false} />
                       </Form.Item>
                     </Form.Item>
                   </Col>
@@ -290,7 +280,7 @@ const FormPage = () => {
                       label={t('form.travel_id')}
                       name="travel_id"
                     >
-                      <Input />
+                      <InputNumber style={{width:'100%'}} controls={false} />
                     </Form.Item>
                   </Col>
                 </Row>
@@ -302,7 +292,7 @@ const FormPage = () => {
                       name="expected_salary"
                       rules={[{ required: true, message: t('form_alert.salary') }]}
                     >
-                      <InputNumber style={{ width: '100%'}} />
+                      <InputNumber style={{ width: '100%'}}  controls={false}/>
                     </Form.Item>
                   </Col>
                   <Col span={6} style={{ display: 'flex', justifyContent: 'center' }}>
@@ -330,7 +320,7 @@ const FormPage = () => {
           </Col>
         </Row>
       </div>
-      <Table formData={formValues}/>
+      <Table/>
     </>
   )
 }
